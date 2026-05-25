@@ -26,4 +26,3 @@ services:
     name: vedaai-redis
     plan: free
     maxmemoryPolicy: noeviction
-    ipAllowList: []
