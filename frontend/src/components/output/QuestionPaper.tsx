@@ -51,7 +51,20 @@ export default function QuestionPaper({ paper }: Props) {
                 <div className="flex-1">
                   <div className="flex flex-wrap items-start gap-2 mb-1">
                     <p className="text-sm text-gray-800 flex-1">{q.questionText}</p>
-                    <span className="text-[11px] text-gray-400 flex-shrink-0">[{q.marks} {q.marks === 1 ? 'Mark' : 'Marks'}]</span>
+                    <div className="flex items-center gap-1.5 flex-shrink-0">
+                      {q.difficulty && (
+                        <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
+                          q.difficulty.toLowerCase() === 'easy'
+                            ? 'bg-green-50 text-green-600'
+                            : q.difficulty.toLowerCase() === 'moderate' || q.difficulty.toLowerCase() === 'medium'
+                            ? 'bg-amber-50 text-amber-600'
+                            : 'bg-red-50 text-red-500'
+                        }`}>
+                          {q.difficulty}
+                        </span>
+                      )}
+                      <span className="text-[11px] text-gray-400">[{q.marks} {q.marks === 1 ? 'Mark' : 'Marks'}]</span>
+                    </div>
                   </div>
                   {q.options && q.options.length > 0 && (
                     <ul className="mt-1.5 space-y-1 pl-1">
