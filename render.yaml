@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: vedaai-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false          # set manually in Render dashboard
+      - key: REDIS_URL
+        fromService:
+          name: vedaai-redis
+          type: redis
+          property: connectionString
+      - key: GEMINI_API_KEY
+        sync: false          # set manually in Render dashboard
+      - key: CLIENT_URL
+        sync: false          # set to your Vercel frontend URL
+
+  - type: redis
+    name: vedaai-redis
+    plan: free
+    maxmemoryPolicy: noeviction
