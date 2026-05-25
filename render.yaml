@@ -13,17 +13,8 @@ services:
       - key: MONGODB_URI
         sync: false          # set manually in Render dashboard
       - key: REDIS_URL
-        fromService:
-          name: vedaai-redis
-          type: redis
-          property: connectionString
+        sync: false          # set manually — use Upstash Redis URL (rediss://...)
       - key: GEMINI_API_KEY
         sync: false          # set manually in Render dashboard
       - key: CLIENT_URL
         sync: false          # set to your Vercel frontend URL
-
-  - type: redis
-    name: vedaai-redis
-    plan: free
-    maxmemoryPolicy: noeviction
-    ipAllowlist: []
