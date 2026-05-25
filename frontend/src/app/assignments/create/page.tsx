@@ -162,26 +162,32 @@ export default function CreateAssignmentPage() {
                     }}
                     className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 bg-white pr-11 transition-colors"
                   />
-                  {/* Calendar icon area: hidden date input sits here, icon is non-interactive overlay */}
-                  <div className="absolute right-0 top-0 bottom-0 w-11 flex items-center justify-center">
-                    <input
-                      ref={dateRef}
-                      type="date"
-                      className="absolute inset-0 opacity-0 cursor-pointer w-full"
-                      onChange={(e) => {
-                        if (e.target.value) {
-                          const [y, m, d] = e.target.value.split('-');
-                          setFormDueDate(`${d}-${m}-${y}`);
-                        }
-                      }}
-                    />
-                    <svg className="pointer-events-none" width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="#6b7280" strokeWidth={1.8}>
+                  {/* Hidden date input anchored at left so native calendar opens within viewport */}
+                  <input
+                    ref={dateRef}
+                    type="date"
+                    className="absolute left-0 top-0 bottom-0 opacity-0 pointer-events-none w-px"
+                    tabIndex={-1}
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        const [y, m, d] = e.target.value.split('-');
+                        setFormDueDate(`${d}-${m}-${y}`);
+                      }
+                    }}
+                  />
+                  {/* Calendar icon button — triggers showPicker() */}
+                  <button
+                    type="button"
+                    className="absolute right-0 top-0 bottom-0 w-11 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
+                    onClick={() => dateRef.current?.showPicker()}
+                  >
+                    <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                       <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                       <line x1="16" y1="2" x2="16" y2="6"/>
                       <line x1="8" y1="2" x2="8" y2="6"/>
                       <line x1="3" y1="10" x2="21" y2="10"/>
                     </svg>
-                  </div>
+                  </button>
                 </div>
               </div>
 
